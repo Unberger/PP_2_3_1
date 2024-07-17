@@ -22,16 +22,18 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @ComponentScan("web")
 @PropertySource("classpath:db.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableWebMvc
 @EnableJpaRepositories("web")
-public class SpringConfig implements WebMvcConfigurer {
+public class
+SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
@@ -48,7 +50,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/view/");
+        templateResolver.setPrefix("/WEB-INF//");
         templateResolver.setSuffix(".html");
         return templateResolver;
     }
@@ -88,6 +90,7 @@ public class SpringConfig implements WebMvcConfigurer {
         return properties;
     }
 
+//    @PersistenceContext
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
