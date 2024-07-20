@@ -11,8 +11,7 @@ import java.util.List;
 
 @Service
 @Repository
-@Transactional(readOnly = true)
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
@@ -22,13 +21,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional
-    public List<User> showAllUser() {
-        return userDao.showAllUser();
+    public List<User> showAllUsers() {
+        return userDao.showAllUsers();
     }
 
     @Override
-    @Transactional
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }

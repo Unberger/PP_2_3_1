@@ -3,6 +3,7 @@ package web.dao;
 //import jakarta.persistence.EntityManager;
 //import jakarta.persistence.PersistenceContext;
 //import jakarta.persistence.PersistenceContextType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -16,17 +17,13 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    private final EntityManager em;
 
-    @Autowired
-    public UserDaoImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
-    public List<User> showAllUser() {
-        return em.createQuery("SELECT u from User u", User.class).getResultList();
+    public List<User> showAllUsers() {
+        return em.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
@@ -41,16 +38,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(int id, User user) {
-        User userToBeUpdated = getUserById(id);
-        userToBeUpdated.setName(user.getName());
-        userToBeUpdated.setLastName(user.getLastName());
-        userToBeUpdated.setAge(user.getAge());
-        em.merge(userToBeUpdated); //может быть ошибкой, так как строчка, возможно добавляет юзера в конец
+        em.merge(user);
     }
 
     @Override
     public void delete(int id) {
-        if (em.find(User.class, getUserById(id)) != null) {
+        if (em.find(User.class, id) != null) {
             em.remove(getUserById(id));
         }
     }

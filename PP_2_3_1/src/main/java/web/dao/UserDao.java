@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public interface UserDao {
 
-    List<User> showAllUser ();
+    List<User> showAllUsers ();
 
     User getUserById(int id);
 
