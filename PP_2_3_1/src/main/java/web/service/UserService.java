@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> showAllUser ();
+    List<User> showAllUsers ();
 
     User getUserById(int id);
 
